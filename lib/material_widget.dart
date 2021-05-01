@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:symex_mobile_v2/feature/splash_screen/pages/splash_screen_page.dart';
-import 'package:symex_mobile_v2/routes/app_routes.dart';
+import 'feature/splash_screen/pages/splash_screen_page.dart';
+import 'routes/app_routes.dart';
+import 'translation/translation_service.dart';
 
-class RootWidget extends StatelessWidget {
+class MaterialWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
@@ -21,7 +22,11 @@ class RootWidget extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: SplashScreen(),
-      initialRoute: AppRouts.INITIAL,
+      initialRoute: AppRouts.initial,
+      translations: TranslationService(), // your translations
+      locale: TranslationService
+          .locale, // translations will be displayed in that locale
+      fallbackLocale: Locale('en', 'US'),
     );
   }
 }

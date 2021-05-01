@@ -3,6 +3,7 @@ description: A new Flutter package project.
 version: 0.0.1
 author:
 homepage:
+publish_to: 'none'
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
@@ -17,16 +18,16 @@ dependencies:
   shared_preferences: ^2.0.5
   injectable: ^1.2.2
   get_it: ^6.1.1
-
+  dartz: ^0.10.0-nullsafety.1
+  domain:
+    path: ../domain 
+  core:
+    path: ../core 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  # add the generator to your dev_dependencies
   injectable_generator:
-  # add build runner if not already added
   build_runner:
-# For information on the generic Dart part of this file, see the
-# following page: https://dart.dev/tools/pub/pubspec
 
 # The following section is specific to Flutter.
 flutter:

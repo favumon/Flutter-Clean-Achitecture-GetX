@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:connectivity/connectivity.dart';
+import 'package:core/error/failures.dart';
 import 'package:dio/dio.dart';
 import 'package:logger/logger.dart';
 
@@ -13,17 +14,19 @@ class RetryInterceptor extends Interceptor {
   final Logger logger;
   final RetryOptions options;
   final Connectivity connectivity;
-
+  final StreamSink<Failure> networkErrorListner;
   RetryInterceptor(
       {required this.dio,
       required this.logger,
       required this.connectivity,
-      options})
+      options,
+      required this.networkErrorListner})
       : this.options = options ?? const RetryOptions();
 
   @override
   Future onError(DioError err, ErrorInterceptorHandler handler) async {
     if (_isNetworkIssue(err)) {
+      networkErrorListner.add(NetworkFailure());
       // Incase of 'No internet' which throws a SocketException
       try {
         // ignore: cancel_subscriptions
@@ -65,8 +68,13 @@ class RetryInterceptor extends Interceptor {
           return super.onError(err, handler);
         }
       }
+      networkErrorListner.add(RequestTimeout(message: err.message));
+
       return super.onError(err, handler);
     }
+
+    if (err.type == DioErrorType.response)
+      networkErrorListner.add(ServerFailure(message: err.message));
   }
 
   bool _isNetworkIssue(DioError err) {

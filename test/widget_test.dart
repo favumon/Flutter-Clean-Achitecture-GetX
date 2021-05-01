@@ -7,14 +7,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:symex_mobile_v2/main.dart';
-import 'package:symex_mobile_v2/root_widget.dart';
+import 'package:symex_mobile_v2/material_widget.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(RootWidget());
+    await tester.pumpWidget(MaterialWidget());
 
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);
