@@ -12,7 +12,6 @@ import 'options.dart';
 class RetryInterceptor extends Interceptor {
   final Dio dio;
   final Logger logger;
-  final RetryOptions options;
   final Connectivity connectivity;
   final StreamSink<Failure> networkErrorListner;
   RetryInterceptor(
@@ -20,8 +19,7 @@ class RetryInterceptor extends Interceptor {
       required this.logger,
       required this.connectivity,
       options,
-      required this.networkErrorListner})
-      : this.options = options ?? const RetryOptions();
+      required this.networkErrorListner});
 
   @override
   Future onError(DioError err, ErrorInterceptorHandler handler) async {

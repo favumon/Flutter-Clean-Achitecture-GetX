@@ -9,15 +9,12 @@ import 'package:injectable/injectable.dart';
 
 @LazySingleton(as: ApiErrorHandlerRepository)
 class ApiErrorHandlerRepositoryImpl extends ApiErrorHandlerRepository {
-  // final DataConnectionChecker dataConnectionChecker;
-  // final Connectivity connectivity;
-  // final StreamController<bool> _networkStatusStrem = StreamController<bool>();
   final RemoteApi remoteApi;
 
   ApiErrorHandlerRepositoryImpl(this.remoteApi);
 
   @override
   Future<Either<Failure, Stream<Failure>>> getApiErrorStream() {
-    return Future.value(Right(remoteApi.networkInfoListner));
+    return Future.value(Right(remoteApi.networkErrorListner));
   }
 }

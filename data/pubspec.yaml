@@ -23,11 +23,12 @@ dependencies:
     path: ../domain 
   core:
     path: ../core 
+  mockito: ^5.0.7
 dev_dependencies:
   flutter_test:
     sdk: flutter
   injectable_generator:
-  build_runner:
+  build_runner: ^1.11.0
 
 # The following section is specific to Flutter.
 flutter:

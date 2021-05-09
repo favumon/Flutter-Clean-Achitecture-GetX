@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:connectivity/connectivity.dart';
 import 'package:core/error/failures.dart';
+import 'package:dartz/dartz.dart';
 import 'package:data/core/local_storage.dart';
 import 'package:data/core/utils/dio_interceptors/dio_logger.dart';
 import 'package:data/core/utils/dio_interceptors/retry_interceptor/retry_interceptor.dart';
@@ -14,8 +15,9 @@ import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
 
 abstract class RemoteApi {
-  apiGet(String url);
-  Stream<Failure> get networkInfoListner;
+  Future<Either<Failure, Map<String, dynamic>>> apiGet(String url,
+      {Map<String, dynamic>? queryParameters});
+  Stream<Failure> get networkErrorListner;
   onDispose();
 }
 
@@ -27,7 +29,7 @@ class RemoteApiImpl extends RemoteApi {
   final StreamController<Failure> _networkExceptionListner = StreamController();
 
   @override
-  get networkInfoListner => _networkExceptionListner.stream;
+  get networkErrorListner => _networkExceptionListner.stream;
 
   @disposeMethod
   onDispose() {
@@ -57,12 +59,18 @@ class RemoteApiImpl extends RemoteApi {
   }
 
   @override
-  apiGet(String url) async {
+  Future<Either<Failure, Map<String, dynamic>>> apiGet(String path,
+      {Map<String, dynamic>? queryParameters}) async {
     try {
-      var r = await dio.get(url);
-      if (r != null) {}
+      var response = await dio.get(path, queryParameters: queryParameters);
+      if (response.statusCode == 200) {
+        return Right(response.data);
+      } else
+        return Left(ServerFailure(message: response.statusMessage));
     } catch (e) {
-      if (e != null) {}
+      Left(NetworkFailure(message: e.toString()));
     }
+
+    return Left(NetworkFailure());
   }
 }

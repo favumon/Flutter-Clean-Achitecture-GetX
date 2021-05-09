@@ -8,8 +8,8 @@ import 'di_injection/../injection_container.config.dart';
 final getIt = GetIt.instance;
 
 @InjectableInit()
-Future<void> configureDependencies() async {
-  await $initDataGetIt(getIt);
-  $initDomainGetIt(getIt);
-  await $initGetIt(getIt);
+Future<void> configureDependencies({String? environment}) async {
+  await $initDataGetIt(getIt, environment: environment);
+  $initDomainGetIt(getIt, environment: environment);
+  $initGetIt(getIt, environment: environment);
 }
