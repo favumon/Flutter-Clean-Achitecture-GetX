@@ -51,6 +51,11 @@ main() {
         networkErrorListner: networkErrorListner);
   });
 
+  tearDown(() {
+    networkErrorListner.close();
+    _networkExceptionListner.close();
+  });
+
   test('should emit NetworkException when there is Socket excepttion',
       () async {
     when(mockDioError.type).thenReturn(DioErrorType.other);
