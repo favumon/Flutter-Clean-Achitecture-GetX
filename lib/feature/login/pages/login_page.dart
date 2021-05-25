@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:reactive_forms/reactive_forms.dart';
-import 'package:symex_mobile_v2/core/shared_widgets/common_text_field.dart';
-import 'package:symex_mobile_v2/di_injection/injection_container.dart';
-import 'package:symex_mobile_v2/feature/login/controllers/login_page_controller.dart';
 import 'package:get/get.dart';
+import 'package:reactive_forms/reactive_forms.dart';
+
+import '../../../core/shared_widgets/common_text_field.dart';
+import '../../../di_injection/injection_container.dart';
+import '../controllers/login_page_controller.dart';
 
 class LoginPage extends StatelessWidget {
   final LoginPageController _loginPageController =

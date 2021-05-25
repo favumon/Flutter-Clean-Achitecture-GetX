@@ -3,7 +3,8 @@ import 'package:domain/feature/login/validation/password_validation.dart';
 import 'package:get/get.dart';
 import 'package:injectable/injectable.dart';
 import 'package:reactive_forms/reactive_forms.dart';
-import 'package:symex_mobile_v2/core/utils/validation_helper.dart';
+
+import '../../../core/utils/validation_helper.dart';
 
 @injectable
 class LoginPageController extends GetxController {

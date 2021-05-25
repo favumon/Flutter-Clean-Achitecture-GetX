@@ -2,8 +2,9 @@ import 'package:domain/feature/app_settings/entities/app_settings.dart';
 import 'package:domain/feature/local_storage/usecases/set_default_language.dart';
 import 'package:get/get.dart';
 import 'package:injectable/injectable.dart';
-import 'package:symex_mobile_v2/app_config/routes/app_routes.dart';
-import 'package:symex_mobile_v2/core/services/navigation_service.dart';
+
+import '../../../app_config/routes/app_routes.dart';
+import '../../../core/services/navigation_service.dart';
 
 @injectable
 class LanguageSelectionPageController extends GetxController {
