@@ -15,9 +15,13 @@ dependencies:
   # Value equality
   equatable: ^2.0.0
   dartz: ^0.10.0-nullsafety.1
+  injectable: ^1.2.2
+  get_it: ^6.1.1
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  injectable_generator:
+  build_runner: ^1.11.0 
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

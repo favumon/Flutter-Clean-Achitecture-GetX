@@ -1,27 +1,28 @@
-import 'package:data/core/api_endpoints.dart';
+import 'package:data/core/constants/api_endpoints.dart';
 import 'package:data/core/local_storage.dart';
 import 'package:dio/dio.dart';
 
-const USER_TOKEN = 'user_token';
-const TOKEN_HEADER = 'bearer_token';
+const tokenHeader = 'bearer_token';
 
 class TokenInterceptor extends Interceptor {
   final Dio dio;
   final LocalStorage localStorage;
   final Dio tokenDio;
+  final ApiEndpoints apiEndpoints;
 
-  TokenInterceptor(this.dio, this.localStorage, this.tokenDio);
+  TokenInterceptor(
+      this.dio, this.localStorage, this.tokenDio, this.apiEndpoints);
 
   @override
   void onError(DioError error, ErrorInterceptorHandler handler) {
     // Assume 401 stands for token expired
     if (error.response?.statusCode == 401) {
-      var bearerToken = localStorage.getString(USER_TOKEN);
+      var bearerToken = localStorage.getString(userToken);
 
       var options = error.response!.requestOptions;
       // If the token has been updated, repeat directly.
-      if (bearerToken != options.headers[TOKEN_HEADER]) {
-        options.headers[TOKEN_HEADER] = bearerToken;
+      if (bearerToken != options.headers[tokenHeader]) {
+        options.headers[tokenHeader] = bearerToken;
         //repeat
         dio.fetch(options).then(
           (r) => handler.resolve(r),
@@ -36,11 +37,11 @@ class TokenInterceptor extends Interceptor {
       dio.lock();
       dio.interceptors.responseLock.lock();
       dio.interceptors.errorLock.lock();
-      tokenDio.get(ApiEndpoints.token).then((d) {
+      tokenDio.get(apiEndpoints.token).then((d) {
         var updatedToken = d.data!['token'];
         //update token
-        options.headers[TOKEN_HEADER] = updatedToken;
-        localStorage.saveString(USER_TOKEN, updatedToken);
+        options.headers[tokenHeader] = updatedToken;
+        localStorage.saveString(userToken, updatedToken);
       }).whenComplete(() {
         dio.unlock();
         dio.interceptors.responseLock.unlock();
@@ -61,7 +62,7 @@ class TokenInterceptor extends Interceptor {
 
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
-    var token = localStorage.getString(USER_TOKEN);
+    var token = localStorage.getString(userToken);
     if (token == null) {
       print('no token，request token firstly...');
       dio.lock();

@@ -4,15 +4,14 @@ import 'package:get/get.dart';
 import '../../../di_injection/injection_container.dart';
 import '../controllers/splash_screen_controller.dart';
 
-class SplashScreen extends GetWidget {
+class SplashScreen extends StatelessWidget {
   final SplashScreenController splashScreenController =
-      getIt<SplashScreenController>();
+      Get.put(getIt<SplashScreenController>());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Text('test'.tr),
-      ),
-    );
+        body: Center(
+      child: Icon(Icons.photo_size_select_actual_outlined),
+    ));
   }
 }

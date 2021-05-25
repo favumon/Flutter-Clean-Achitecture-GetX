@@ -1,24 +1,47 @@
-import 'package:data/core/remote_api.dart';
+import 'package:core/constants/build_environment.dart';
+import 'package:core/usecases/usecase.dart';
+import 'package:domain/feature/local_storage/usecases/get_default_language.dart';
 import 'package:get/get.dart';
+import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:symex_mobile_v2/app_config/routes/app_routes.dart';
+import 'package:symex_mobile_v2/di_injection/injection_container.dart';
+
+import '../../../core/services/navigation_service.dart';
 
 @injectable
 class SplashScreenController extends GetxController {
-  final RemoteApi remoteApi;
+  final GetIt _getIt;
+  final GetDefaultLanguage _getDefaultLanguage;
+  final NavigationService _navigationService;
+  SplashScreenController(
+      this._getIt, this._getDefaultLanguage, this._navigationService);
 
-  SplashScreenController(this.remoteApi) {
-    callApi();
+  @override
+  onReady() {
+    super.onReady();
+
+    _checkDependenciesReady();
   }
-  Future<void> callApi() async {
-    var s = await SharedPreferences.getInstance();
-    // This call to setState tells the Flutter framework that something has
-    // changed in this State, which causes it to rerun the build method below
-    // so that the display can reflect the updated values. If we changed
-    // _counter without calling setState(), then the build method would not be
-    // called again, and so nothing would appear to happen.
-    //
 
-    remoteApi.apiGet('https://jsonplaceholder.typicode.com/postsgg/1');
+  Future<void> navigate() async {
+    var language = await _getDefaultLanguage(NoParams());
+
+    language.fold((l) => _navigateToLanguageSelectionPage(),
+        (r) => _navigateToLoginPage());
+  }
+
+  _navigateToLanguageSelectionPage() {
+    _navigationService.navigateAndReplace(AppRouts.languageSelectionPage);
+  }
+
+  _navigateToLoginPage() {
+    _navigationService.navigateAndReplace(AppRouts.loginPage);
+  }
+
+  Future<void> _checkDependenciesReady() async {
+    await _getIt.allReady();
+
+    navigate();
   }
 }

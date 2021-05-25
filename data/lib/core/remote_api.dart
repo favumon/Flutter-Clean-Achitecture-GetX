@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:connectivity/connectivity.dart';
 import 'package:core/error/failures.dart';
 import 'package:dartz/dartz.dart';
+import 'package:data/core/constants/api_endpoints.dart';
 import 'package:data/core/local_storage.dart';
 import 'package:data/core/utils/dio_interceptors/dio_logger.dart';
 import 'package:data/core/utils/dio_interceptors/retry_interceptor/retry_interceptor.dart';
@@ -24,8 +25,10 @@ abstract class RemoteApi {
 @LazySingleton(as: RemoteApi)
 class RemoteApiImpl extends RemoteApi {
   final Dio dio;
+  final Dio tokenDio;
   final Connectivity connectivity;
   final LocalStorage localStorage;
+  final ApiEndpoints apiEndpoints;
   final StreamController<Failure> _networkExceptionListner = StreamController();
 
   @override
@@ -36,10 +39,12 @@ class RemoteApiImpl extends RemoteApi {
     _networkExceptionListner.close();
   }
 
-  RemoteApiImpl(this.dio, this.connectivity, this.localStorage) {
+  RemoteApiImpl(this.dio, this.connectivity, this.localStorage,
+      this.apiEndpoints, this.tokenDio) {
     dio.options.connectTimeout = 3000;
+    dio.options.baseUrl = apiEndpoints.baseUrl;
     final interceptors = [
-      // TokenInterceptor(dio, localStorage),
+      //  TokenInterceptor(dio, localStorage, tokenDio, apiEndpoints),
       RetryInterceptor(
           dio: dio,
           logger: Logger(),

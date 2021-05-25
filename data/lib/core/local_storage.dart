@@ -1,6 +1,9 @@
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+const userToken = 'user_token';
+const defaultLanguage = 'default_language';
+
 abstract class LocalStorage {
   String? getString(String key);
   Future<bool> saveString(String key, String value);

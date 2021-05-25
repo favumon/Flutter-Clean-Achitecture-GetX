@@ -5,6 +5,7 @@
 import 'dart:async' as _i9;
 import 'dart:math' as _i14;
 
+import 'package:data/core/constants/api_endpoints.dart' as _i15;
 import 'package:data/core/local_storage.dart' as _i8;
 import 'package:dio/src/adapter.dart' as _i3;
 import 'package:dio/src/cancel_token.dart' as _i11;
@@ -1077,4 +1078,38 @@ class MockLock extends _i1.Mock implements _i5.Lock {
   _i9.Future<dynamic>? enqueue(_i5.EnqueueCallback? callback) =>
       (super.noSuchMethod(Invocation.method(#enqueue, [callback]))
           as _i9.Future<dynamic>?);
+}
+
+/// A class which mocks [ApiEndpoints].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockApiEndpoints extends _i1.Mock implements _i15.ApiEndpoints {
+  MockApiEndpoints() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  String get token =>
+      (super.noSuchMethod(Invocation.getter(#token), returnValue: '')
+          as String);
+  @override
+  set token(String? _token) =>
+      super.noSuchMethod(Invocation.setter(#token, _token),
+          returnValueForMissingStub: null);
+  @override
+  String get baseUrl =>
+      (super.noSuchMethod(Invocation.getter(#baseUrl), returnValue: '')
+          as String);
+  @override
+  set baseUrl(String? _baseUrl) =>
+      super.noSuchMethod(Invocation.setter(#baseUrl, _baseUrl),
+          returnValueForMissingStub: null);
+  @override
+  String get appsettings =>
+      (super.noSuchMethod(Invocation.getter(#appsettings), returnValue: '')
+          as String);
+  @override
+  set appsettings(String? _appsettings) =>
+      super.noSuchMethod(Invocation.setter(#appsettings, _appsettings),
+          returnValueForMissingStub: null);
 }

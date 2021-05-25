@@ -2,7 +2,7 @@ import 'package:core/error/failures.dart';
 import 'package:core/usecases/usecase.dart';
 import 'package:dartz/dartz.dart';
 import 'package:domain/feature/app_settings/entities/app_settings.dart';
-import 'package:domain/feature/app_settings/repository/app_settings_repository.dart';
+import 'package:domain/feature/app_settings/repositories/app_settings_repository.dart';
 import 'package:injectable/injectable.dart';
 
 @lazySingleton

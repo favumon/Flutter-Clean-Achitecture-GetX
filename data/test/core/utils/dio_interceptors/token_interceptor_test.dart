@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:ffi';
 
-import 'package:data/core/api_endpoints.dart';
+import 'package:data/core/constants/api_endpoints.dart';
 import 'package:data/core/local_storage.dart';
 import 'package:data/core/mock_api_responses/mock_response_reader.dart';
 import 'package:data/core/utils/dio_interceptors/token_interceptor.dart';
@@ -20,7 +20,8 @@ import 'token_interceptor_test.mocks.dart';
   Response,
   RequestOptions,
   Interceptors,
-  Lock
+  Lock,
+  ApiEndpoints
 ])
 main() {
   late TokenInterceptor tokenInterceptor;
@@ -32,6 +33,7 @@ main() {
   late MockResponse<Map<String, dynamic>>? mockResponse;
   late MockRequestOptions mockRequestOptions;
   late MockInterceptors mockInterceptors;
+  late MockApiEndpoints mockApiEndpoints;
 
   group('status code is 401', () {
     setUp(() {
@@ -42,9 +44,10 @@ main() {
       mockErrorInterceptorHandler = MockErrorInterceptorHandler();
       mockResponse = MockResponse();
       mockRequestOptions = MockRequestOptions();
+      mockApiEndpoints = MockApiEndpoints();
       //mockDioError.response = mockResponse;
-      tokenInterceptor =
-          TokenInterceptor(mockDio, mockLocalStorage, mockTokenDio);
+      tokenInterceptor = TokenInterceptor(
+          mockDio, mockLocalStorage, mockTokenDio, mockApiEndpoints);
       mockInterceptors = MockInterceptors();
     });
 
@@ -52,7 +55,7 @@ main() {
         () {
       final String testToken = 'test_token';
 
-      when(mockLocalStorage.getString(USER_TOKEN)).thenReturn(testToken);
+      when(mockLocalStorage.getString(userToken)).thenReturn(testToken);
       when(mockResponse!.statusCode).thenReturn(401);
       when(mockResponse!.requestOptions).thenReturn(mockRequestOptions);
       when(mockRequestOptions.headers).thenReturn({});
@@ -63,7 +66,7 @@ main() {
 
       tokenInterceptor.onError(mockDioError, mockErrorInterceptorHandler);
 
-      verify(mockLocalStorage.getString(USER_TOKEN));
+      verify(mockLocalStorage.getString(userToken));
     });
     test(
         'should retry request when updated token does not match with request\'s token',
@@ -71,9 +74,9 @@ main() {
       final String updatedToken = 'updated_token';
       final String oldTokenToken = 'old_token';
 
-      final Map<String, dynamic> oldHeader = ({TOKEN_HEADER: oldTokenToken});
+      final Map<String, dynamic> oldHeader = ({tokenHeader: oldTokenToken});
 
-      when(mockLocalStorage.getString(USER_TOKEN)).thenReturn(updatedToken);
+      when(mockLocalStorage.getString(userToken)).thenReturn(updatedToken);
       when(mockResponse!.statusCode).thenReturn(401);
       when(mockResponse!.requestOptions).thenReturn(mockRequestOptions);
       when(mockRequestOptions.headers).thenReturn(oldHeader);
@@ -84,11 +87,11 @@ main() {
 
       tokenInterceptor.onError(mockDioError, mockErrorInterceptorHandler);
 
-      verify(mockLocalStorage.getString(USER_TOKEN));
+      verify(mockLocalStorage.getString(userToken));
 
       verify(mockDio.fetch(mockRequestOptions));
 
-      expect(mockRequestOptions.headers[TOKEN_HEADER], updatedToken);
+      expect(mockRequestOptions.headers[tokenHeader], updatedToken);
     });
 
     group(
@@ -99,10 +102,10 @@ main() {
         final String requestsToken = updatedToken;
         final Map<String, dynamic> tokenResponse =
             json.decode(apiResposeMock('token.json'));
-        final Map<String, dynamic> header = ({TOKEN_HEADER: requestsToken});
+        final Map<String, dynamic> header = ({tokenHeader: requestsToken});
 
-        when(mockLocalStorage.getString(USER_TOKEN)).thenReturn(updatedToken);
-        when(mockLocalStorage.saveString(USER_TOKEN, any))
+        when(mockLocalStorage.getString(userToken)).thenReturn(updatedToken);
+        when(mockLocalStorage.saveString(userToken, any))
             .thenAnswer((realInvocation) async => true);
         when(mockResponse!.statusCode).thenReturn(401);
         when(mockResponse!.requestOptions).thenReturn(mockRequestOptions);
@@ -110,8 +113,10 @@ main() {
         when(mockResponse!.data).thenReturn(tokenResponse);
         when(mockDio.fetch(mockRequestOptions))
             .thenAnswer((realInvocation) async => Future.value(mockResponse));
+
+        when(mockApiEndpoints.token).thenReturn('token');
         when(
-          mockTokenDio.get(ApiEndpoints.token),
+          mockTokenDio.get(any),
         ).thenAnswer((realInvocation) async => Future.value(mockResponse));
         when(mockDioError.response).thenReturn(mockResponse);
         when(mockDio.interceptors).thenReturn(mockInterceptors);
@@ -120,12 +125,11 @@ main() {
 
         tokenInterceptor.onError(mockDioError, mockErrorInterceptorHandler);
 
-        await untilCalled(mockLocalStorage.saveString(USER_TOKEN, any));
-        verify(mockLocalStorage.saveString(USER_TOKEN, any));
+        await untilCalled(mockLocalStorage.saveString(userToken, any));
+        verify(mockLocalStorage.saveString(userToken, any));
         await untilCalled(verify(mockDio.fetch(mockRequestOptions)));
         verify(mockErrorInterceptorHandler.resolve(mockResponse));
-        expect(
-            mockRequestOptions.headers[TOKEN_HEADER], tokenResponse['token']);
+        expect(mockRequestOptions.headers[tokenHeader], tokenResponse['token']);
       });
 
       test(
@@ -135,12 +139,12 @@ main() {
         final String requestsToken = updatedToken;
         final Map<String, dynamic> tokenResponse =
             json.decode(apiResposeMock('token.json'));
-        final Map<String, dynamic> header = ({TOKEN_HEADER: requestsToken});
+        final Map<String, dynamic> header = ({tokenHeader: requestsToken});
         MockLock mockErrorLock = MockLock();
         MockLock mockResponseLock = MockLock();
 
-        when(mockLocalStorage.getString(USER_TOKEN)).thenReturn(updatedToken);
-        when(mockLocalStorage.saveString(USER_TOKEN, any))
+        when(mockLocalStorage.getString(userToken)).thenReturn(updatedToken);
+        when(mockLocalStorage.saveString(userToken, any))
             .thenAnswer((realInvocation) async => true);
         when(mockResponse!.statusCode).thenReturn(401);
         when(mockResponse!.requestOptions).thenReturn(mockRequestOptions);
@@ -148,8 +152,10 @@ main() {
         when(mockResponse!.data).thenReturn(tokenResponse);
         when(mockDio.fetch(mockRequestOptions))
             .thenAnswer((realInvocation) async => Future.value(mockResponse));
+        when(mockApiEndpoints.token).thenReturn('token');
+
         when(
-          mockTokenDio.get(ApiEndpoints.token),
+          mockTokenDio.get(any),
         ).thenAnswer((realInvocation) async => Future.value(mockResponse));
         when(mockDioError.response).thenReturn(mockResponse);
         when(mockDio.interceptors).thenReturn(mockInterceptors);

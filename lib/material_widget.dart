@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import 'app_config/routes/app_pages.dart';
+import 'app_config/routes/app_routes.dart';
+import 'app_config/translation/translation_service.dart';
 import 'feature/splash_screen/pages/splash_screen_page.dart';
-import 'routes/app_routes.dart';
-import 'translation/translation_service.dart';
 
 class MaterialWidget extends StatelessWidget {
   @override
@@ -23,6 +25,7 @@ class MaterialWidget extends StatelessWidget {
       ),
       home: SplashScreen(),
       initialRoute: AppRouts.initial,
+      getPages: AppPages.pages,
       translations: TranslationService(), // your translations
       locale: TranslationService
           .locale, // translations will be displayed in that locale

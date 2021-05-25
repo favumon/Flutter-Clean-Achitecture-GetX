@@ -24,3 +24,7 @@ class RequestTimeout extends NetworkFailure {
 class CacheFailure extends Failure {
   CacheFailure({String? message}) : super(message: message);
 }
+
+class LocalStorageFailure extends Failure {
+  LocalStorageFailure({String? message}) : super(message: message);
+}
