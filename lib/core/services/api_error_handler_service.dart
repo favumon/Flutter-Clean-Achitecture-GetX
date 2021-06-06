@@ -5,8 +5,7 @@ import 'package:core/usecases/usecase.dart';
 import 'package:dartz/dartz.dart';
 import 'package:domain/feature/api_error_handler/usecases/get_api_error_stream.dart';
 import 'package:injectable/injectable.dart';
-
-import 'snackbar_service.dart';
+import 'alert_service.dart';
 
 abstract class ApiErrorHandlerService {
   listenForApiError();
@@ -15,12 +14,11 @@ abstract class ApiErrorHandlerService {
 
 @Singleton(as: ApiErrorHandlerService)
 class ApiErrorHandlerServiceImpl extends ApiErrorHandlerService {
-  final SnackbarService snackbarService;
+  final AlertService _alertService;
   final GetApiErrorStream getNetworkStatusStream;
   StreamSubscription<Failure>? apiErrorStreamController;
 
-  ApiErrorHandlerServiceImpl(
-      this.snackbarService, this.getNetworkStatusStream) {
+  ApiErrorHandlerServiceImpl(this._alertService, this.getNetworkStatusStream) {
     listenForApiError();
   }
   @override
@@ -30,7 +28,7 @@ class ApiErrorHandlerServiceImpl extends ApiErrorHandlerService {
     apiErrorStream.fold((l) => null, (r) {
       apiErrorStreamController = r.listen((event) {
         if (event is NetworkFailure)
-          snackbarService.showAlertSnackbar(
+          _alertService.showAlertSnackbar(
               title: "Network issue",
               message: 'Check your network and try again');
       });

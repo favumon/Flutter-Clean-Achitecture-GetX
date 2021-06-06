@@ -1,5 +1,5 @@
 import 'package:data/core/constants/api_endpoints.dart';
-import 'package:data/core/local_storage.dart';
+import 'package:data/core/device/local_storage.dart';
 import 'package:dio/dio.dart';
 
 const tokenHeader = 'bearer_token';

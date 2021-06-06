@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:ffi';
 
 import 'package:data/core/constants/api_endpoints.dart';
-import 'package:data/core/local_storage.dart';
+import 'package:data/core/device/local_storage.dart';
 import 'package:data/core/mock_api_responses/mock_response_reader.dart';
 import 'package:data/core/utils/dio_interceptors/token_interceptor.dart';
 import 'package:dio/dio.dart';

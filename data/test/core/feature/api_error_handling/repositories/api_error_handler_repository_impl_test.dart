@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:connectivity/connectivity.dart';
 import 'package:core/error/failures.dart';
 import 'package:dartz/dartz.dart';
-import 'package:data/core/local_storage.dart';
+import 'package:data/core/device/local_storage.dart';
 import 'package:data/core/remote_api.dart';
 import 'package:data/feature/api_error_handling/repositories/api_error_handler_repository_impl.dart';
 import 'package:dio/dio.dart';

@@ -1,12 +1,15 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
+import 'package:local_auth/local_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 @module
 abstract class RegisterModule {
   @singleton
   Connectivity get connectivity;
+  @singleton
+  LocalAuthentication get localAuthentication;
 
   @Named("BaseUrl")
   String get baseUrl => 'My base url';

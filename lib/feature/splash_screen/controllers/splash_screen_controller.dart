@@ -1,12 +1,10 @@
-import 'package:core/constants/build_environment.dart';
 import 'package:core/usecases/usecase.dart';
 import 'package:domain/feature/local_storage/usecases/get_default_language.dart';
 import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
-import '../../../app_config/routes/app_routes.dart';
-import '../../../di_injection/injection_container.dart';
 
+import '../../../app_config/routes/app_routes.dart';
 import '../../../core/services/navigation_service.dart';
 
 @injectable

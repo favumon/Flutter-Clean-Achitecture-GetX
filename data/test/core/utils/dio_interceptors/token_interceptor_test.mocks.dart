@@ -2,22 +2,23 @@
 // in data/test/core/utils/dio_interceptors/token_interceptor_test.dart.
 // Do not manually edit this file.
 
-import 'dart:async' as _i9;
-import 'dart:math' as _i14;
+import 'dart:async' as _i10;
+import 'dart:math' as _i15;
 
-import 'package:data/core/constants/api_endpoints.dart' as _i15;
-import 'package:data/core/local_storage.dart' as _i8;
-import 'package:dio/src/adapter.dart' as _i3;
-import 'package:dio/src/cancel_token.dart' as _i11;
-import 'package:dio/src/dio.dart' as _i10;
-import 'package:dio/src/dio_error.dart' as _i12;
-import 'package:dio/src/headers.dart' as _i7;
-import 'package:dio/src/interceptor.dart' as _i5;
-import 'package:dio/src/options.dart' as _i2;
-import 'package:dio/src/redirect_record.dart' as _i13;
-import 'package:dio/src/response.dart' as _i6;
-import 'package:dio/src/transformer.dart' as _i4;
+import 'package:data/core/constants/api_endpoints.dart' as _i16;
+import 'package:data/core/device/local_storage.dart' as _i9;
+import 'package:dio/src/adapter.dart' as _i4;
+import 'package:dio/src/cancel_token.dart' as _i12;
+import 'package:dio/src/dio.dart' as _i11;
+import 'package:dio/src/dio_error.dart' as _i13;
+import 'package:dio/src/headers.dart' as _i8;
+import 'package:dio/src/interceptor.dart' as _i6;
+import 'package:dio/src/options.dart' as _i3;
+import 'package:dio/src/redirect_record.dart' as _i14;
+import 'package:dio/src/response.dart' as _i7;
+import 'package:dio/src/transformer.dart' as _i5;
 import 'package:mockito/mockito.dart' as _i1;
+import 'package:shared_preferences/shared_preferences.dart' as _i2;
 
 // ignore_for_file: comment_references
 // ignore_for_file: unnecessary_parenthesis
@@ -26,95 +27,102 @@ import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: avoid_redundant_argument_values
 
-class _FakeBaseOptions extends _i1.Fake implements _i2.BaseOptions {}
-
-class _FakeHttpClientAdapter extends _i1.Fake implements _i3.HttpClientAdapter {
+class _FakeSharedPreferences extends _i1.Fake implements _i2.SharedPreferences {
 }
 
-class _FakeTransformer extends _i1.Fake implements _i4.Transformer {}
+class _FakeBaseOptions extends _i1.Fake implements _i3.BaseOptions {}
 
-class _FakeInterceptors extends _i1.Fake implements _i5.Interceptors {}
+class _FakeHttpClientAdapter extends _i1.Fake implements _i4.HttpClientAdapter {
+}
 
-class _FakeResponse<T> extends _i1.Fake implements _i6.Response<T> {}
+class _FakeTransformer extends _i1.Fake implements _i5.Transformer {}
 
-class _FakeRequestOptions extends _i1.Fake implements _i2.RequestOptions {}
+class _FakeInterceptors extends _i1.Fake implements _i6.Interceptors {}
+
+class _FakeResponse<T> extends _i1.Fake implements _i7.Response<T> {}
+
+class _FakeRequestOptions extends _i1.Fake implements _i3.RequestOptions {}
 
 class _FakeInterceptorState<T> extends _i1.Fake
-    implements _i5.InterceptorState<T> {}
+    implements _i6.InterceptorState<T> {}
 
-class _FakeHeaders extends _i1.Fake implements _i7.Headers {}
+class _FakeHeaders extends _i1.Fake implements _i8.Headers {}
 
 class _FakeUri extends _i1.Fake implements Uri {}
 
-class _FakeLock extends _i1.Fake implements _i5.Lock {}
+class _FakeLock extends _i1.Fake implements _i6.Lock {}
 
 class _FakeIterator<E> extends _i1.Fake implements Iterator<E> {}
 
-class _FakeInterceptor extends _i1.Fake implements _i5.Interceptor {}
+class _FakeInterceptor extends _i1.Fake implements _i6.Interceptor {}
 
 /// A class which mocks [LocalStorage].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockLocalStorage extends _i1.Mock implements _i8.LocalStorage {
+class MockLocalStorage extends _i1.Mock implements _i9.LocalStorage {
   MockLocalStorage() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
+  _i2.SharedPreferences get sharedPreferences =>
+      (super.noSuchMethod(Invocation.getter(#sharedPreferences),
+          returnValue: _FakeSharedPreferences()) as _i2.SharedPreferences);
+  @override
   String? getString(String? key) =>
       (super.noSuchMethod(Invocation.method(#getString, [key])) as String?);
   @override
-  _i9.Future<bool> saveString(String? key, String? value) =>
+  _i10.Future<bool> saveString(String? key, String? value) =>
       (super.noSuchMethod(Invocation.method(#saveString, [key, value]),
-          returnValue: Future<bool>.value(false)) as _i9.Future<bool>);
+          returnValue: Future<bool>.value(false)) as _i10.Future<bool>);
 }
 
 /// A class which mocks [Dio].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockDio extends _i1.Mock implements _i10.Dio {
+class MockDio extends _i1.Mock implements _i11.Dio {
   MockDio() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i2.BaseOptions get options =>
+  _i3.BaseOptions get options =>
       (super.noSuchMethod(Invocation.getter(#options),
-          returnValue: _FakeBaseOptions()) as _i2.BaseOptions);
+          returnValue: _FakeBaseOptions()) as _i3.BaseOptions);
   @override
-  set options(_i2.BaseOptions? _options) =>
+  set options(_i3.BaseOptions? _options) =>
       super.noSuchMethod(Invocation.setter(#options, _options),
           returnValueForMissingStub: null);
   @override
-  _i3.HttpClientAdapter get httpClientAdapter =>
+  _i4.HttpClientAdapter get httpClientAdapter =>
       (super.noSuchMethod(Invocation.getter(#httpClientAdapter),
-          returnValue: _FakeHttpClientAdapter()) as _i3.HttpClientAdapter);
+          returnValue: _FakeHttpClientAdapter()) as _i4.HttpClientAdapter);
   @override
-  set httpClientAdapter(_i3.HttpClientAdapter? _httpClientAdapter) => super
+  set httpClientAdapter(_i4.HttpClientAdapter? _httpClientAdapter) => super
       .noSuchMethod(Invocation.setter(#httpClientAdapter, _httpClientAdapter),
           returnValueForMissingStub: null);
   @override
-  _i4.Transformer get transformer =>
+  _i5.Transformer get transformer =>
       (super.noSuchMethod(Invocation.getter(#transformer),
-          returnValue: _FakeTransformer()) as _i4.Transformer);
+          returnValue: _FakeTransformer()) as _i5.Transformer);
   @override
-  set transformer(_i4.Transformer? _transformer) =>
+  set transformer(_i5.Transformer? _transformer) =>
       super.noSuchMethod(Invocation.setter(#transformer, _transformer),
           returnValueForMissingStub: null);
   @override
-  _i5.Interceptors get interceptors =>
+  _i6.Interceptors get interceptors =>
       (super.noSuchMethod(Invocation.getter(#interceptors),
-          returnValue: _FakeInterceptors()) as _i5.Interceptors);
+          returnValue: _FakeInterceptors()) as _i6.Interceptors);
   @override
   void close({bool? force = false}) =>
       super.noSuchMethod(Invocation.method(#close, [], {#force: force}),
           returnValueForMissingStub: null);
   @override
-  _i9.Future<_i6.Response<T>> get<T>(String? path,
+  _i10.Future<_i7.Response<T>> get<T>(String? path,
           {Map<String, dynamic>? queryParameters,
-          _i2.Options? options,
-          _i11.CancelToken? cancelToken,
-          _i2.ProgressCallback? onReceiveProgress}) =>
+          _i3.Options? options,
+          _i12.CancelToken? cancelToken,
+          _i3.ProgressCallback? onReceiveProgress}) =>
       (super.noSuchMethod(
               Invocation.method(#get, [
                 path
@@ -124,13 +132,13 @@ class MockDio extends _i1.Mock implements _i10.Dio {
                 #cancelToken: cancelToken,
                 #onReceiveProgress: onReceiveProgress
               }),
-              returnValue: Future<_i6.Response<T>>.value(_FakeResponse<T>()))
-          as _i9.Future<_i6.Response<T>>);
+              returnValue: Future<_i7.Response<T>>.value(_FakeResponse<T>()))
+          as _i10.Future<_i7.Response<T>>);
   @override
-  _i9.Future<_i6.Response<T>> getUri<T>(Uri? uri,
-          {_i2.Options? options,
-          _i11.CancelToken? cancelToken,
-          _i2.ProgressCallback? onReceiveProgress}) =>
+  _i10.Future<_i7.Response<T>> getUri<T>(Uri? uri,
+          {_i3.Options? options,
+          _i12.CancelToken? cancelToken,
+          _i3.ProgressCallback? onReceiveProgress}) =>
       (super.noSuchMethod(
               Invocation.method(#getUri, [
                 uri
@@ -139,16 +147,16 @@ class MockDio extends _i1.Mock implements _i10.Dio {
                 #cancelToken: cancelToken,
                 #onReceiveProgress: onReceiveProgress
               }),
-              returnValue: Future<_i6.Response<T>>.value(_FakeResponse<T>()))
-          as _i9.Future<_i6.Response<T>>);
+              returnValue: Future<_i7.Response<T>>.value(_FakeResponse<T>()))
+          as _i10.Future<_i7.Response<T>>);
   @override
-  _i9.Future<_i6.Response<T>> post<T>(String? path,
+  _i10.Future<_i7.Response<T>> post<T>(String? path,
           {dynamic data,
           Map<String, dynamic>? queryParameters,
-          _i2.Options? options,
-          _i11.CancelToken? cancelToken,
-          _i2.ProgressCallback? onSendProgress,
-          _i2.ProgressCallback? onReceiveProgress}) =>
+          _i3.Options? options,
+          _i12.CancelToken? cancelToken,
+          _i3.ProgressCallback? onSendProgress,
+          _i3.ProgressCallback? onReceiveProgress}) =>
       (super.noSuchMethod(
               Invocation.method(#post, [
                 path
@@ -160,15 +168,15 @@ class MockDio extends _i1.Mock implements _i10.Dio {
                 #onSendProgress: onSendProgress,
                 #onReceiveProgress: onReceiveProgress
               }),
-              returnValue: Future<_i6.Response<T>>.value(_FakeResponse<T>()))
-          as _i9.Future<_i6.Response<T>>);
+              returnValue: Future<_i7.Response<T>>.value(_FakeResponse<T>()))
+          as _i10.Future<_i7.Response<T>>);
   @override
-  _i9.Future<_i6.Response<T>> postUri<T>(Uri? uri,
+  _i10.Future<_i7.Response<T>> postUri<T>(Uri? uri,
           {dynamic data,
-          _i2.Options? options,
-          _i11.CancelToken? cancelToken,
-          _i2.ProgressCallback? onSendProgress,
-          _i2.ProgressCallback? onReceiveProgress}) =>
+          _i3.Options? options,
+          _i12.CancelToken? cancelToken,
+          _i3.ProgressCallback? onSendProgress,
+          _i3.ProgressCallback? onReceiveProgress}) =>
       (super.noSuchMethod(
               Invocation.method(#postUri, [
                 uri
@@ -179,16 +187,16 @@ class MockDio extends _i1.Mock implements _i10.Dio {
                 #onSendProgress: onSendProgress,
                 #onReceiveProgress: onReceiveProgress
               }),
-              returnValue: Future<_i6.Response<T>>.value(_FakeResponse<T>()))
-          as _i9.Future<_i6.Response<T>>);
+              returnValue: Future<_i7.Response<T>>.value(_FakeResponse<T>()))
+          as _i10.Future<_i7.Response<T>>);
   @override
-  _i9.Future<_i6.Response<T>> put<T>(String? path,
+  _i10.Future<_i7.Response<T>> put<T>(String? path,
           {dynamic data,
           Map<String, dynamic>? queryParameters,
-          _i2.Options? options,
-          _i11.CancelToken? cancelToken,
-          _i2.ProgressCallback? onSendProgress,
-          _i2.ProgressCallback? onReceiveProgress}) =>
+          _i3.Options? options,
+          _i12.CancelToken? cancelToken,
+          _i3.ProgressCallback? onSendProgress,
+          _i3.ProgressCallback? onReceiveProgress}) =>
       (super.noSuchMethod(
               Invocation.method(#put, [
                 path
@@ -200,15 +208,15 @@ class MockDio extends _i1.Mock implements _i10.Dio {
                 #onSendProgress: onSendProgress,
                 #onReceiveProgress: onReceiveProgress
               }),
-              returnValue: Future<_i6.Response<T>>.value(_FakeResponse<T>()))
-          as _i9.Future<_i6.Response<T>>);
+              returnValue: Future<_i7.Response<T>>.value(_FakeResponse<T>()))
+          as _i10.Future<_i7.Response<T>>);
   @override
-  _i9.Future<_i6.Response<T>> putUri<T>(Uri? uri,
+  _i10.Future<_i7.Response<T>> putUri<T>(Uri? uri,
           {dynamic data,
-          _i2.Options? options,
-          _i11.CancelToken? cancelToken,
-          _i2.ProgressCallback? onSendProgress,
-          _i2.ProgressCallback? onReceiveProgress}) =>
+          _i3.Options? options,
+          _i12.CancelToken? cancelToken,
+          _i3.ProgressCallback? onSendProgress,
+          _i3.ProgressCallback? onReceiveProgress}) =>
       (super.noSuchMethod(
               Invocation.method(#putUri, [
                 uri
@@ -219,14 +227,14 @@ class MockDio extends _i1.Mock implements _i10.Dio {
                 #onSendProgress: onSendProgress,
                 #onReceiveProgress: onReceiveProgress
               }),
-              returnValue: Future<_i6.Response<T>>.value(_FakeResponse<T>()))
-          as _i9.Future<_i6.Response<T>>);
+              returnValue: Future<_i7.Response<T>>.value(_FakeResponse<T>()))
+          as _i10.Future<_i7.Response<T>>);
   @override
-  _i9.Future<_i6.Response<T>> head<T>(String? path,
+  _i10.Future<_i7.Response<T>> head<T>(String? path,
           {dynamic data,
           Map<String, dynamic>? queryParameters,
-          _i2.Options? options,
-          _i11.CancelToken? cancelToken}) =>
+          _i3.Options? options,
+          _i12.CancelToken? cancelToken}) =>
       (super.noSuchMethod(
               Invocation.method(#head, [
                 path
@@ -236,24 +244,24 @@ class MockDio extends _i1.Mock implements _i10.Dio {
                 #options: options,
                 #cancelToken: cancelToken
               }),
-              returnValue: Future<_i6.Response<T>>.value(_FakeResponse<T>()))
-          as _i9.Future<_i6.Response<T>>);
+              returnValue: Future<_i7.Response<T>>.value(_FakeResponse<T>()))
+          as _i10.Future<_i7.Response<T>>);
   @override
-  _i9.Future<_i6.Response<T>> headUri<T>(Uri? uri,
+  _i10.Future<_i7.Response<T>> headUri<T>(Uri? uri,
           {dynamic data,
-          _i2.Options? options,
-          _i11.CancelToken? cancelToken}) =>
+          _i3.Options? options,
+          _i12.CancelToken? cancelToken}) =>
       (super.noSuchMethod(
               Invocation.method(#headUri, [uri],
                   {#data: data, #options: options, #cancelToken: cancelToken}),
-              returnValue: Future<_i6.Response<T>>.value(_FakeResponse<T>()))
-          as _i9.Future<_i6.Response<T>>);
+              returnValue: Future<_i7.Response<T>>.value(_FakeResponse<T>()))
+          as _i10.Future<_i7.Response<T>>);
   @override
-  _i9.Future<_i6.Response<T>> delete<T>(String? path,
+  _i10.Future<_i7.Response<T>> delete<T>(String? path,
           {dynamic data,
           Map<String, dynamic>? queryParameters,
-          _i2.Options? options,
-          _i11.CancelToken? cancelToken}) =>
+          _i3.Options? options,
+          _i12.CancelToken? cancelToken}) =>
       (super.noSuchMethod(
               Invocation.method(#delete, [
                 path
@@ -263,26 +271,26 @@ class MockDio extends _i1.Mock implements _i10.Dio {
                 #options: options,
                 #cancelToken: cancelToken
               }),
-              returnValue: Future<_i6.Response<T>>.value(_FakeResponse<T>()))
-          as _i9.Future<_i6.Response<T>>);
+              returnValue: Future<_i7.Response<T>>.value(_FakeResponse<T>()))
+          as _i10.Future<_i7.Response<T>>);
   @override
-  _i9.Future<_i6.Response<T>> deleteUri<T>(Uri? uri,
+  _i10.Future<_i7.Response<T>> deleteUri<T>(Uri? uri,
           {dynamic data,
-          _i2.Options? options,
-          _i11.CancelToken? cancelToken}) =>
+          _i3.Options? options,
+          _i12.CancelToken? cancelToken}) =>
       (super.noSuchMethod(
               Invocation.method(#deleteUri, [uri],
                   {#data: data, #options: options, #cancelToken: cancelToken}),
-              returnValue: Future<_i6.Response<T>>.value(_FakeResponse<T>()))
-          as _i9.Future<_i6.Response<T>>);
+              returnValue: Future<_i7.Response<T>>.value(_FakeResponse<T>()))
+          as _i10.Future<_i7.Response<T>>);
   @override
-  _i9.Future<_i6.Response<T>> patch<T>(String? path,
+  _i10.Future<_i7.Response<T>> patch<T>(String? path,
           {dynamic data,
           Map<String, dynamic>? queryParameters,
-          _i2.Options? options,
-          _i11.CancelToken? cancelToken,
-          _i2.ProgressCallback? onSendProgress,
-          _i2.ProgressCallback? onReceiveProgress}) =>
+          _i3.Options? options,
+          _i12.CancelToken? cancelToken,
+          _i3.ProgressCallback? onSendProgress,
+          _i3.ProgressCallback? onReceiveProgress}) =>
       (super.noSuchMethod(
               Invocation.method(#patch, [
                 path
@@ -294,15 +302,15 @@ class MockDio extends _i1.Mock implements _i10.Dio {
                 #onSendProgress: onSendProgress,
                 #onReceiveProgress: onReceiveProgress
               }),
-              returnValue: Future<_i6.Response<T>>.value(_FakeResponse<T>()))
-          as _i9.Future<_i6.Response<T>>);
+              returnValue: Future<_i7.Response<T>>.value(_FakeResponse<T>()))
+          as _i10.Future<_i7.Response<T>>);
   @override
-  _i9.Future<_i6.Response<T>> patchUri<T>(Uri? uri,
+  _i10.Future<_i7.Response<T>> patchUri<T>(Uri? uri,
           {dynamic data,
-          _i2.Options? options,
-          _i11.CancelToken? cancelToken,
-          _i2.ProgressCallback? onSendProgress,
-          _i2.ProgressCallback? onReceiveProgress}) =>
+          _i3.Options? options,
+          _i12.CancelToken? cancelToken,
+          _i3.ProgressCallback? onSendProgress,
+          _i3.ProgressCallback? onReceiveProgress}) =>
       (super.noSuchMethod(
               Invocation.method(#patchUri, [
                 uri
@@ -313,8 +321,8 @@ class MockDio extends _i1.Mock implements _i10.Dio {
                 #onSendProgress: onSendProgress,
                 #onReceiveProgress: onReceiveProgress
               }),
-              returnValue: Future<_i6.Response<T>>.value(_FakeResponse<T>()))
-          as _i9.Future<_i6.Response<T>>);
+              returnValue: Future<_i7.Response<T>>.value(_FakeResponse<T>()))
+          as _i10.Future<_i7.Response<T>>);
   @override
   void lock() => super.noSuchMethod(Invocation.method(#lock, []),
       returnValueForMissingStub: null);
@@ -325,14 +333,14 @@ class MockDio extends _i1.Mock implements _i10.Dio {
   void clear() => super.noSuchMethod(Invocation.method(#clear, []),
       returnValueForMissingStub: null);
   @override
-  _i9.Future<_i6.Response<dynamic>> download(String? urlPath, dynamic savePath,
-          {_i2.ProgressCallback? onReceiveProgress,
+  _i10.Future<_i7.Response<dynamic>> download(String? urlPath, dynamic savePath,
+          {_i3.ProgressCallback? onReceiveProgress,
           Map<String, dynamic>? queryParameters,
-          _i11.CancelToken? cancelToken,
+          _i12.CancelToken? cancelToken,
           bool? deleteOnError = true,
           String? lengthHeader = r'content-length',
           dynamic data,
-          _i2.Options? options}) =>
+          _i3.Options? options}) =>
       (super.noSuchMethod(
               Invocation.method(#download, [
                 urlPath,
@@ -347,16 +355,16 @@ class MockDio extends _i1.Mock implements _i10.Dio {
                 #options: options
               }),
               returnValue:
-                  Future<_i6.Response<dynamic>>.value(_FakeResponse<dynamic>()))
-          as _i9.Future<_i6.Response<dynamic>>);
+                  Future<_i7.Response<dynamic>>.value(_FakeResponse<dynamic>()))
+          as _i10.Future<_i7.Response<dynamic>>);
   @override
-  _i9.Future<_i6.Response<dynamic>> downloadUri(Uri? uri, dynamic savePath,
-          {_i2.ProgressCallback? onReceiveProgress,
-          _i11.CancelToken? cancelToken,
+  _i10.Future<_i7.Response<dynamic>> downloadUri(Uri? uri, dynamic savePath,
+          {_i3.ProgressCallback? onReceiveProgress,
+          _i12.CancelToken? cancelToken,
           bool? deleteOnError = true,
           String? lengthHeader = r'content-length',
           dynamic data,
-          _i2.Options? options}) =>
+          _i3.Options? options}) =>
       (super.noSuchMethod(
               Invocation.method(#downloadUri, [
                 uri,
@@ -370,16 +378,16 @@ class MockDio extends _i1.Mock implements _i10.Dio {
                 #options: options
               }),
               returnValue:
-                  Future<_i6.Response<dynamic>>.value(_FakeResponse<dynamic>()))
-          as _i9.Future<_i6.Response<dynamic>>);
+                  Future<_i7.Response<dynamic>>.value(_FakeResponse<dynamic>()))
+          as _i10.Future<_i7.Response<dynamic>>);
   @override
-  _i9.Future<_i6.Response<T>> request<T>(String? path,
+  _i10.Future<_i7.Response<T>> request<T>(String? path,
           {dynamic data,
           Map<String, dynamic>? queryParameters,
-          _i11.CancelToken? cancelToken,
-          _i2.Options? options,
-          _i2.ProgressCallback? onSendProgress,
-          _i2.ProgressCallback? onReceiveProgress}) =>
+          _i12.CancelToken? cancelToken,
+          _i3.Options? options,
+          _i3.ProgressCallback? onSendProgress,
+          _i3.ProgressCallback? onReceiveProgress}) =>
       (super.noSuchMethod(
               Invocation.method(#request, [
                 path
@@ -391,15 +399,15 @@ class MockDio extends _i1.Mock implements _i10.Dio {
                 #onSendProgress: onSendProgress,
                 #onReceiveProgress: onReceiveProgress
               }),
-              returnValue: Future<_i6.Response<T>>.value(_FakeResponse<T>()))
-          as _i9.Future<_i6.Response<T>>);
+              returnValue: Future<_i7.Response<T>>.value(_FakeResponse<T>()))
+          as _i10.Future<_i7.Response<T>>);
   @override
-  _i9.Future<_i6.Response<T>> requestUri<T>(Uri? uri,
+  _i10.Future<_i7.Response<T>> requestUri<T>(Uri? uri,
           {dynamic data,
-          _i11.CancelToken? cancelToken,
-          _i2.Options? options,
-          _i2.ProgressCallback? onSendProgress,
-          _i2.ProgressCallback? onReceiveProgress}) =>
+          _i12.CancelToken? cancelToken,
+          _i3.Options? options,
+          _i3.ProgressCallback? onSendProgress,
+          _i3.ProgressCallback? onReceiveProgress}) =>
       (super.noSuchMethod(
               Invocation.method(#requestUri, [
                 uri
@@ -410,40 +418,40 @@ class MockDio extends _i1.Mock implements _i10.Dio {
                 #onSendProgress: onSendProgress,
                 #onReceiveProgress: onReceiveProgress
               }),
-              returnValue: Future<_i6.Response<T>>.value(_FakeResponse<T>()))
-          as _i9.Future<_i6.Response<T>>);
+              returnValue: Future<_i7.Response<T>>.value(_FakeResponse<T>()))
+          as _i10.Future<_i7.Response<T>>);
   @override
-  _i9.Future<_i6.Response<T>> fetch<T>(_i2.RequestOptions? requestOptions) =>
+  _i10.Future<_i7.Response<T>> fetch<T>(_i3.RequestOptions? requestOptions) =>
       (super.noSuchMethod(Invocation.method(#fetch, [requestOptions]),
-              returnValue: Future<_i6.Response<T>>.value(_FakeResponse<T>()))
-          as _i9.Future<_i6.Response<T>>);
+              returnValue: Future<_i7.Response<T>>.value(_FakeResponse<T>()))
+          as _i10.Future<_i7.Response<T>>);
 }
 
 /// A class which mocks [DioError].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockDioError extends _i1.Mock implements _i12.DioError {
+class MockDioError extends _i1.Mock implements _i13.DioError {
   MockDioError() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i2.RequestOptions get requestOptions =>
+  _i3.RequestOptions get requestOptions =>
       (super.noSuchMethod(Invocation.getter(#requestOptions),
-          returnValue: _FakeRequestOptions()) as _i2.RequestOptions);
+          returnValue: _FakeRequestOptions()) as _i3.RequestOptions);
   @override
-  set requestOptions(_i2.RequestOptions? _requestOptions) =>
+  set requestOptions(_i3.RequestOptions? _requestOptions) =>
       super.noSuchMethod(Invocation.setter(#requestOptions, _requestOptions),
           returnValueForMissingStub: null);
   @override
-  set response(_i6.Response<dynamic>? _response) =>
+  set response(_i7.Response<dynamic>? _response) =>
       super.noSuchMethod(Invocation.setter(#response, _response),
           returnValueForMissingStub: null);
   @override
-  _i12.DioErrorType get type => (super.noSuchMethod(Invocation.getter(#type),
-      returnValue: _i12.DioErrorType.connectTimeout) as _i12.DioErrorType);
+  _i13.DioErrorType get type => (super.noSuchMethod(Invocation.getter(#type),
+      returnValue: _i13.DioErrorType.connectTimeout) as _i13.DioErrorType);
   @override
-  set type(_i12.DioErrorType? _type) =>
+  set type(_i13.DioErrorType? _type) =>
       super.noSuchMethod(Invocation.setter(#type, _type),
           returnValueForMissingStub: null);
   @override
@@ -468,31 +476,31 @@ class MockDioError extends _i1.Mock implements _i12.DioError {
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockErrorInterceptorHandler extends _i1.Mock
-    implements _i5.ErrorInterceptorHandler {
+    implements _i6.ErrorInterceptorHandler {
   MockErrorInterceptorHandler() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i9.Future<_i5.InterceptorState<dynamic>> get future =>
+  _i10.Future<_i6.InterceptorState<dynamic>> get future =>
       (super.noSuchMethod(Invocation.getter(#future),
-              returnValue: Future<_i5.InterceptorState<dynamic>>.value(
+              returnValue: Future<_i6.InterceptorState<dynamic>>.value(
                   _FakeInterceptorState<dynamic>()))
-          as _i9.Future<_i5.InterceptorState<dynamic>>);
+          as _i10.Future<_i6.InterceptorState<dynamic>>);
   @override
   bool get isCompleted =>
       (super.noSuchMethod(Invocation.getter(#isCompleted), returnValue: false)
           as bool);
   @override
-  void next(_i12.DioError? err) =>
+  void next(_i13.DioError? err) =>
       super.noSuchMethod(Invocation.method(#next, [err]),
           returnValueForMissingStub: null);
   @override
-  void resolve(_i6.Response<dynamic>? response) =>
+  void resolve(_i7.Response<dynamic>? response) =>
       super.noSuchMethod(Invocation.method(#resolve, [response]),
           returnValueForMissingStub: null);
   @override
-  void reject(_i12.DioError? error) =>
+  void reject(_i13.DioError? error) =>
       super.noSuchMethod(Invocation.method(#reject, [error]),
           returnValueForMissingStub: null);
 }
@@ -500,7 +508,7 @@ class MockErrorInterceptorHandler extends _i1.Mock
 /// A class which mocks [Response].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockResponse<T> extends _i1.Mock implements _i6.Response<T> {
+class MockResponse<T> extends _i1.Mock implements _i7.Response<T> {
   MockResponse() {
     _i1.throwOnMissingStub(this);
   }
@@ -509,18 +517,18 @@ class MockResponse<T> extends _i1.Mock implements _i6.Response<T> {
   set data(T? _data) => super.noSuchMethod(Invocation.setter(#data, _data),
       returnValueForMissingStub: null);
   @override
-  _i7.Headers get headers => (super.noSuchMethod(Invocation.getter(#headers),
-      returnValue: _FakeHeaders()) as _i7.Headers);
+  _i8.Headers get headers => (super.noSuchMethod(Invocation.getter(#headers),
+      returnValue: _FakeHeaders()) as _i8.Headers);
   @override
-  set headers(_i7.Headers? _headers) =>
+  set headers(_i8.Headers? _headers) =>
       super.noSuchMethod(Invocation.setter(#headers, _headers),
           returnValueForMissingStub: null);
   @override
-  _i2.RequestOptions get requestOptions =>
+  _i3.RequestOptions get requestOptions =>
       (super.noSuchMethod(Invocation.getter(#requestOptions),
-          returnValue: _FakeRequestOptions()) as _i2.RequestOptions);
+          returnValue: _FakeRequestOptions()) as _i3.RequestOptions);
   @override
-  set requestOptions(_i2.RequestOptions? _requestOptions) =>
+  set requestOptions(_i3.RequestOptions? _requestOptions) =>
       super.noSuchMethod(Invocation.setter(#requestOptions, _requestOptions),
           returnValueForMissingStub: null);
   @override
@@ -540,11 +548,11 @@ class MockResponse<T> extends _i1.Mock implements _i6.Response<T> {
       super.noSuchMethod(Invocation.setter(#extra, _extra),
           returnValueForMissingStub: null);
   @override
-  List<_i13.RedirectRecord> get redirects =>
+  List<_i14.RedirectRecord> get redirects =>
       (super.noSuchMethod(Invocation.getter(#redirects),
-          returnValue: <_i13.RedirectRecord>[]) as List<_i13.RedirectRecord>);
+          returnValue: <_i14.RedirectRecord>[]) as List<_i14.RedirectRecord>);
   @override
-  set redirects(List<_i13.RedirectRecord>? _redirects) =>
+  set redirects(List<_i14.RedirectRecord>? _redirects) =>
       super.noSuchMethod(Invocation.setter(#redirects, _redirects),
           returnValueForMissingStub: null);
   @override
@@ -564,7 +572,7 @@ class MockResponse<T> extends _i1.Mock implements _i6.Response<T> {
 /// A class which mocks [RequestOptions].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockRequestOptions extends _i1.Mock implements _i2.RequestOptions {
+class MockRequestOptions extends _i1.Mock implements _i3.RequestOptions {
   MockRequestOptions() {
     _i1.throwOnMissingStub(this);
   }
@@ -579,15 +587,15 @@ class MockRequestOptions extends _i1.Mock implements _i2.RequestOptions {
   set path(String? _path) => super.noSuchMethod(Invocation.setter(#path, _path),
       returnValueForMissingStub: null);
   @override
-  set cancelToken(_i11.CancelToken? _cancelToken) =>
+  set cancelToken(_i12.CancelToken? _cancelToken) =>
       super.noSuchMethod(Invocation.setter(#cancelToken, _cancelToken),
           returnValueForMissingStub: null);
   @override
-  set onReceiveProgress(_i2.ProgressCallback? _onReceiveProgress) => super
+  set onReceiveProgress(_i3.ProgressCallback? _onReceiveProgress) => super
       .noSuchMethod(Invocation.setter(#onReceiveProgress, _onReceiveProgress),
           returnValueForMissingStub: null);
   @override
-  set onSendProgress(_i2.ProgressCallback? _onSendProgress) =>
+  set onSendProgress(_i3.ProgressCallback? _onSendProgress) =>
       super.noSuchMethod(Invocation.setter(#onSendProgress, _onSendProgress),
           returnValueForMissingStub: null);
   @override
@@ -643,19 +651,19 @@ class MockRequestOptions extends _i1.Mock implements _i2.RequestOptions {
       super.noSuchMethod(Invocation.setter(#receiveTimeout, _receiveTimeout),
           returnValueForMissingStub: null);
   @override
-  _i2.ResponseType get responseType =>
+  _i3.ResponseType get responseType =>
       (super.noSuchMethod(Invocation.getter(#responseType),
-          returnValue: _i2.ResponseType.json) as _i2.ResponseType);
+          returnValue: _i3.ResponseType.json) as _i3.ResponseType);
   @override
-  set responseType(_i2.ResponseType? _responseType) =>
+  set responseType(_i3.ResponseType? _responseType) =>
       super.noSuchMethod(Invocation.setter(#responseType, _responseType),
           returnValueForMissingStub: null);
   @override
-  _i2.ValidateStatus get validateStatus =>
+  _i3.ValidateStatus get validateStatus =>
       (super.noSuchMethod(Invocation.getter(#validateStatus),
-          returnValue: (int? status) => false) as _i2.ValidateStatus);
+          returnValue: (int? status) => false) as _i3.ValidateStatus);
   @override
-  set validateStatus(_i2.ValidateStatus? _validateStatus) =>
+  set validateStatus(_i3.ValidateStatus? _validateStatus) =>
       super.noSuchMethod(Invocation.setter(#validateStatus, _validateStatus),
           returnValueForMissingStub: null);
   @override
@@ -693,19 +701,19 @@ class MockRequestOptions extends _i1.Mock implements _i2.RequestOptions {
       super.noSuchMethod(Invocation.setter(#maxRedirects, _maxRedirects),
           returnValueForMissingStub: null);
   @override
-  set requestEncoder(_i2.RequestEncoder? _requestEncoder) =>
+  set requestEncoder(_i3.RequestEncoder? _requestEncoder) =>
       super.noSuchMethod(Invocation.setter(#requestEncoder, _requestEncoder),
           returnValueForMissingStub: null);
   @override
-  set responseDecoder(_i2.ResponseDecoder? _responseDecoder) =>
+  set responseDecoder(_i3.ResponseDecoder? _responseDecoder) =>
       super.noSuchMethod(Invocation.setter(#responseDecoder, _responseDecoder),
           returnValueForMissingStub: null);
   @override
-  _i2.ListFormat get listFormat =>
+  _i3.ListFormat get listFormat =>
       (super.noSuchMethod(Invocation.getter(#listFormat),
-          returnValue: _i2.ListFormat.csv) as _i2.ListFormat);
+          returnValue: _i3.ListFormat.csv) as _i3.ListFormat);
   @override
-  set listFormat(_i2.ListFormat? _listFormat) =>
+  set listFormat(_i3.ListFormat? _listFormat) =>
       super.noSuchMethod(Invocation.setter(#listFormat, _listFormat),
           returnValueForMissingStub: null);
   @override
@@ -721,7 +729,7 @@ class MockRequestOptions extends _i1.Mock implements _i2.RequestOptions {
       super.noSuchMethod(Invocation.setter(#contentType, contentType),
           returnValueForMissingStub: null);
   @override
-  _i2.RequestOptions copyWith(
+  _i3.RequestOptions copyWith(
           {String? method,
           int? sendTimeout,
           int? receiveTimeout,
@@ -730,20 +738,20 @@ class MockRequestOptions extends _i1.Mock implements _i2.RequestOptions {
           String? path,
           Map<String, dynamic>? queryParameters,
           String? baseUrl,
-          _i2.ProgressCallback? onReceiveProgress,
-          _i2.ProgressCallback? onSendProgress,
-          _i11.CancelToken? cancelToken,
+          _i3.ProgressCallback? onReceiveProgress,
+          _i3.ProgressCallback? onSendProgress,
+          _i12.CancelToken? cancelToken,
           Map<String, dynamic>? extra,
           Map<String, dynamic>? headers,
-          _i2.ResponseType? responseType,
+          _i3.ResponseType? responseType,
           String? contentType,
-          _i2.ValidateStatus? validateStatus,
+          _i3.ValidateStatus? validateStatus,
           bool? receiveDataWhenStatusError,
           bool? followRedirects,
           int? maxRedirects,
-          _i2.RequestEncoder? requestEncoder,
-          _i2.ResponseDecoder? responseDecoder,
-          _i2.ListFormat? listFormat,
+          _i3.RequestEncoder? requestEncoder,
+          _i3.ResponseDecoder? responseDecoder,
+          _i3.ListFormat? listFormat,
           bool? setRequestContentTypeWhenNoPayload}) =>
       (super.noSuchMethod(
           Invocation.method(#copyWith, [], {
@@ -772,13 +780,13 @@ class MockRequestOptions extends _i1.Mock implements _i2.RequestOptions {
             #setRequestContentTypeWhenNoPayload:
                 setRequestContentTypeWhenNoPayload
           }),
-          returnValue: _FakeRequestOptions()) as _i2.RequestOptions);
+          returnValue: _FakeRequestOptions()) as _i3.RequestOptions);
 }
 
 /// A class which mocks [Interceptors].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockInterceptors extends _i1.Mock implements _i5.Interceptors {
+class MockInterceptors extends _i1.Mock implements _i6.Interceptors {
   MockInterceptors() {
     _i1.throwOnMissingStub(this);
   }
@@ -791,21 +799,21 @@ class MockInterceptors extends _i1.Mock implements _i5.Interceptors {
       super.noSuchMethod(Invocation.setter(#length, _length),
           returnValueForMissingStub: null);
   @override
-  _i5.Lock get requestLock =>
+  _i6.Lock get requestLock =>
       (super.noSuchMethod(Invocation.getter(#requestLock),
-          returnValue: _FakeLock()) as _i5.Lock);
+          returnValue: _FakeLock()) as _i6.Lock);
   @override
-  _i5.Lock get responseLock =>
+  _i6.Lock get responseLock =>
       (super.noSuchMethod(Invocation.getter(#responseLock),
-          returnValue: _FakeLock()) as _i5.Lock);
+          returnValue: _FakeLock()) as _i6.Lock);
   @override
-  _i5.Lock get errorLock => (super.noSuchMethod(Invocation.getter(#errorLock),
-      returnValue: _FakeLock()) as _i5.Lock);
+  _i6.Lock get errorLock => (super.noSuchMethod(Invocation.getter(#errorLock),
+      returnValue: _FakeLock()) as _i6.Lock);
   @override
-  Iterator<_i5.Interceptor> get iterator =>
+  Iterator<_i6.Interceptor> get iterator =>
       (super.noSuchMethod(Invocation.getter(#iterator),
-              returnValue: _FakeIterator<_i5.Interceptor>())
-          as Iterator<_i5.Interceptor>);
+              returnValue: _FakeIterator<_i6.Interceptor>())
+          as Iterator<_i6.Interceptor>);
   @override
   bool get isEmpty =>
       (super.noSuchMethod(Invocation.getter(#isEmpty), returnValue: false)
@@ -815,44 +823,44 @@ class MockInterceptors extends _i1.Mock implements _i5.Interceptors {
       (super.noSuchMethod(Invocation.getter(#isNotEmpty), returnValue: false)
           as bool);
   @override
-  _i5.Interceptor get first => (super.noSuchMethod(Invocation.getter(#first),
-      returnValue: _FakeInterceptor()) as _i5.Interceptor);
+  _i6.Interceptor get first => (super.noSuchMethod(Invocation.getter(#first),
+      returnValue: _FakeInterceptor()) as _i6.Interceptor);
   @override
-  set first(_i5.Interceptor? value) =>
+  set first(_i6.Interceptor? value) =>
       super.noSuchMethod(Invocation.setter(#first, value),
           returnValueForMissingStub: null);
   @override
-  _i5.Interceptor get last => (super.noSuchMethod(Invocation.getter(#last),
-      returnValue: _FakeInterceptor()) as _i5.Interceptor);
+  _i6.Interceptor get last => (super.noSuchMethod(Invocation.getter(#last),
+      returnValue: _FakeInterceptor()) as _i6.Interceptor);
   @override
-  set last(_i5.Interceptor? value) =>
+  set last(_i6.Interceptor? value) =>
       super.noSuchMethod(Invocation.setter(#last, value),
           returnValueForMissingStub: null);
   @override
-  _i5.Interceptor get single => (super.noSuchMethod(Invocation.getter(#single),
-      returnValue: _FakeInterceptor()) as _i5.Interceptor);
+  _i6.Interceptor get single => (super.noSuchMethod(Invocation.getter(#single),
+      returnValue: _FakeInterceptor()) as _i6.Interceptor);
   @override
-  Iterable<_i5.Interceptor> get reversed =>
+  Iterable<_i6.Interceptor> get reversed =>
       (super.noSuchMethod(Invocation.getter(#reversed), returnValue: [])
-          as Iterable<_i5.Interceptor>);
+          as Iterable<_i6.Interceptor>);
   @override
-  _i5.Interceptor operator [](int? index) =>
+  _i6.Interceptor operator [](int? index) =>
       (super.noSuchMethod(Invocation.method(#[], [index]),
-          returnValue: _FakeInterceptor()) as _i5.Interceptor);
+          returnValue: _FakeInterceptor()) as _i6.Interceptor);
   @override
-  void operator []=(int? index, _i5.Interceptor? value) =>
+  void operator []=(int? index, _i6.Interceptor? value) =>
       super.noSuchMethod(Invocation.method(#[]=, [index, value]),
           returnValueForMissingStub: null);
   @override
-  _i5.Interceptor elementAt(int? index) =>
+  _i6.Interceptor elementAt(int? index) =>
       (super.noSuchMethod(Invocation.method(#elementAt, [index]),
-          returnValue: _FakeInterceptor()) as _i5.Interceptor);
+          returnValue: _FakeInterceptor()) as _i6.Interceptor);
   @override
-  Iterable<_i5.Interceptor> followedBy(Iterable<_i5.Interceptor>? other) =>
+  Iterable<_i6.Interceptor> followedBy(Iterable<_i6.Interceptor>? other) =>
       (super.noSuchMethod(Invocation.method(#followedBy, [other]),
-          returnValue: []) as Iterable<_i5.Interceptor>);
+          returnValue: []) as Iterable<_i6.Interceptor>);
   @override
-  void forEach(void Function(_i5.Interceptor)? action) =>
+  void forEach(void Function(_i6.Interceptor)? action) =>
       super.noSuchMethod(Invocation.method(#forEach, [action]),
           returnValueForMissingStub: null);
   @override
@@ -860,91 +868,91 @@ class MockInterceptors extends _i1.Mock implements _i5.Interceptors {
       (super.noSuchMethod(Invocation.method(#contains, [element]),
           returnValue: false) as bool);
   @override
-  bool every(bool Function(_i5.Interceptor)? test) =>
+  bool every(bool Function(_i6.Interceptor)? test) =>
       (super.noSuchMethod(Invocation.method(#every, [test]), returnValue: false)
           as bool);
   @override
-  bool any(bool Function(_i5.Interceptor)? test) =>
+  bool any(bool Function(_i6.Interceptor)? test) =>
       (super.noSuchMethod(Invocation.method(#any, [test]), returnValue: false)
           as bool);
   @override
-  _i5.Interceptor firstWhere(bool Function(_i5.Interceptor)? test,
-          {_i5.Interceptor Function()? orElse}) =>
+  _i6.Interceptor firstWhere(bool Function(_i6.Interceptor)? test,
+          {_i6.Interceptor Function()? orElse}) =>
       (super.noSuchMethod(
           Invocation.method(#firstWhere, [test], {#orElse: orElse}),
-          returnValue: _FakeInterceptor()) as _i5.Interceptor);
+          returnValue: _FakeInterceptor()) as _i6.Interceptor);
   @override
-  _i5.Interceptor lastWhere(bool Function(_i5.Interceptor)? test,
-          {_i5.Interceptor Function()? orElse}) =>
+  _i6.Interceptor lastWhere(bool Function(_i6.Interceptor)? test,
+          {_i6.Interceptor Function()? orElse}) =>
       (super.noSuchMethod(
           Invocation.method(#lastWhere, [test], {#orElse: orElse}),
-          returnValue: _FakeInterceptor()) as _i5.Interceptor);
+          returnValue: _FakeInterceptor()) as _i6.Interceptor);
   @override
-  _i5.Interceptor singleWhere(bool Function(_i5.Interceptor)? test,
-          {_i5.Interceptor Function()? orElse}) =>
+  _i6.Interceptor singleWhere(bool Function(_i6.Interceptor)? test,
+          {_i6.Interceptor Function()? orElse}) =>
       (super.noSuchMethod(
           Invocation.method(#singleWhere, [test], {#orElse: orElse}),
-          returnValue: _FakeInterceptor()) as _i5.Interceptor);
+          returnValue: _FakeInterceptor()) as _i6.Interceptor);
   @override
   String join([String? separator = r'']) => (super
           .noSuchMethod(Invocation.method(#join, [separator]), returnValue: '')
       as String);
   @override
-  Iterable<_i5.Interceptor> where(bool Function(_i5.Interceptor)? test) =>
+  Iterable<_i6.Interceptor> where(bool Function(_i6.Interceptor)? test) =>
       (super.noSuchMethod(Invocation.method(#where, [test]), returnValue: [])
-          as Iterable<_i5.Interceptor>);
+          as Iterable<_i6.Interceptor>);
   @override
   Iterable<T> whereType<T>() =>
       (super.noSuchMethod(Invocation.method(#whereType, []), returnValue: [])
           as Iterable<T>);
   @override
-  Iterable<T> map<T>(T Function(_i5.Interceptor)? f) =>
+  Iterable<T> map<T>(T Function(_i6.Interceptor)? f) =>
       (super.noSuchMethod(Invocation.method(#map, [f]), returnValue: [])
           as Iterable<T>);
   @override
-  Iterable<T> expand<T>(Iterable<T> Function(_i5.Interceptor)? f) =>
+  Iterable<T> expand<T>(Iterable<T> Function(_i6.Interceptor)? f) =>
       (super.noSuchMethod(Invocation.method(#expand, [f]), returnValue: [])
           as Iterable<T>);
   @override
-  _i5.Interceptor reduce(
-          _i5.Interceptor Function(_i5.Interceptor, _i5.Interceptor)?
+  _i6.Interceptor reduce(
+          _i6.Interceptor Function(_i6.Interceptor, _i6.Interceptor)?
               combine) =>
       (super.noSuchMethod(Invocation.method(#reduce, [combine]),
-          returnValue: _FakeInterceptor()) as _i5.Interceptor);
+          returnValue: _FakeInterceptor()) as _i6.Interceptor);
   @override
-  T fold<T>(T? initialValue, T Function(T, _i5.Interceptor)? combine) =>
+  T fold<T>(T? initialValue, T Function(T, _i6.Interceptor)? combine) =>
       (super.noSuchMethod(Invocation.method(#fold, [initialValue, combine]),
           returnValue: null) as T);
   @override
-  Iterable<_i5.Interceptor> skip(int? count) =>
+  Iterable<_i6.Interceptor> skip(int? count) =>
       (super.noSuchMethod(Invocation.method(#skip, [count]), returnValue: [])
-          as Iterable<_i5.Interceptor>);
+          as Iterable<_i6.Interceptor>);
   @override
-  Iterable<_i5.Interceptor> skipWhile(bool Function(_i5.Interceptor)? test) =>
+  Iterable<_i6.Interceptor> skipWhile(bool Function(_i6.Interceptor)? test) =>
       (super.noSuchMethod(Invocation.method(#skipWhile, [test]),
-          returnValue: []) as Iterable<_i5.Interceptor>);
+          returnValue: []) as Iterable<_i6.Interceptor>);
   @override
-  Iterable<_i5.Interceptor> take(int? count) =>
+  Iterable<_i6.Interceptor> take(int? count) =>
       (super.noSuchMethod(Invocation.method(#take, [count]), returnValue: [])
-          as Iterable<_i5.Interceptor>);
+          as Iterable<_i6.Interceptor>);
   @override
-  Iterable<_i5.Interceptor> takeWhile(bool Function(_i5.Interceptor)? test) =>
+  Iterable<_i6.Interceptor> takeWhile(bool Function(_i6.Interceptor)? test) =>
       (super.noSuchMethod(Invocation.method(#takeWhile, [test]),
-          returnValue: []) as Iterable<_i5.Interceptor>);
+          returnValue: []) as Iterable<_i6.Interceptor>);
   @override
-  List<_i5.Interceptor> toList({bool? growable = true}) =>
+  List<_i6.Interceptor> toList({bool? growable = true}) =>
       (super.noSuchMethod(Invocation.method(#toList, [], {#growable: growable}),
-          returnValue: <_i5.Interceptor>[]) as List<_i5.Interceptor>);
+          returnValue: <_i6.Interceptor>[]) as List<_i6.Interceptor>);
   @override
-  Set<_i5.Interceptor> toSet() =>
+  Set<_i6.Interceptor> toSet() =>
       (super.noSuchMethod(Invocation.method(#toSet, []),
-          returnValue: <_i5.Interceptor>{}) as Set<_i5.Interceptor>);
+          returnValue: <_i6.Interceptor>{}) as Set<_i6.Interceptor>);
   @override
-  void add(_i5.Interceptor? element) =>
+  void add(_i6.Interceptor? element) =>
       super.noSuchMethod(Invocation.method(#add, [element]),
           returnValueForMissingStub: null);
   @override
-  void addAll(Iterable<_i5.Interceptor>? iterable) =>
+  void addAll(Iterable<_i6.Interceptor>? iterable) =>
       super.noSuchMethod(Invocation.method(#addAll, [iterable]),
           returnValueForMissingStub: null);
   @override
@@ -952,11 +960,11 @@ class MockInterceptors extends _i1.Mock implements _i5.Interceptors {
       (super.noSuchMethod(Invocation.method(#remove, [element]),
           returnValue: false) as bool);
   @override
-  void removeWhere(bool Function(_i5.Interceptor)? test) =>
+  void removeWhere(bool Function(_i6.Interceptor)? test) =>
       super.noSuchMethod(Invocation.method(#removeWhere, [test]),
           returnValueForMissingStub: null);
   @override
-  void retainWhere(bool Function(_i5.Interceptor)? test) =>
+  void retainWhere(bool Function(_i6.Interceptor)? test) =>
       super.noSuchMethod(Invocation.method(#retainWhere, [test]),
           returnValueForMissingStub: null);
   @override
@@ -967,50 +975,50 @@ class MockInterceptors extends _i1.Mock implements _i5.Interceptors {
       (super.noSuchMethod(Invocation.method(#cast, []), returnValue: <R>[])
           as List<R>);
   @override
-  _i5.Interceptor removeLast() =>
+  _i6.Interceptor removeLast() =>
       (super.noSuchMethod(Invocation.method(#removeLast, []),
-          returnValue: _FakeInterceptor()) as _i5.Interceptor);
+          returnValue: _FakeInterceptor()) as _i6.Interceptor);
   @override
-  void sort([int Function(_i5.Interceptor, _i5.Interceptor)? compare]) =>
+  void sort([int Function(_i6.Interceptor, _i6.Interceptor)? compare]) =>
       super.noSuchMethod(Invocation.method(#sort, [compare]),
           returnValueForMissingStub: null);
   @override
-  void shuffle([_i14.Random? random]) =>
+  void shuffle([_i15.Random? random]) =>
       super.noSuchMethod(Invocation.method(#shuffle, [random]),
           returnValueForMissingStub: null);
   @override
-  Map<int, _i5.Interceptor> asMap() =>
+  Map<int, _i6.Interceptor> asMap() =>
       (super.noSuchMethod(Invocation.method(#asMap, []),
-          returnValue: <int, _i5.Interceptor>{}) as Map<int, _i5.Interceptor>);
+          returnValue: <int, _i6.Interceptor>{}) as Map<int, _i6.Interceptor>);
   @override
-  List<_i5.Interceptor> operator +(List<_i5.Interceptor>? other) =>
+  List<_i6.Interceptor> operator +(List<_i6.Interceptor>? other) =>
       (super.noSuchMethod(Invocation.method(#+, [other]),
-          returnValue: <_i5.Interceptor>[]) as List<_i5.Interceptor>);
+          returnValue: <_i6.Interceptor>[]) as List<_i6.Interceptor>);
   @override
-  List<_i5.Interceptor> sublist(int? start, [int? end]) =>
+  List<_i6.Interceptor> sublist(int? start, [int? end]) =>
       (super.noSuchMethod(Invocation.method(#sublist, [start, end]),
-          returnValue: <_i5.Interceptor>[]) as List<_i5.Interceptor>);
+          returnValue: <_i6.Interceptor>[]) as List<_i6.Interceptor>);
   @override
-  Iterable<_i5.Interceptor> getRange(int? start, int? end) =>
+  Iterable<_i6.Interceptor> getRange(int? start, int? end) =>
       (super.noSuchMethod(Invocation.method(#getRange, [start, end]),
-          returnValue: []) as Iterable<_i5.Interceptor>);
+          returnValue: []) as Iterable<_i6.Interceptor>);
   @override
   void removeRange(int? start, int? end) =>
       super.noSuchMethod(Invocation.method(#removeRange, [start, end]),
           returnValueForMissingStub: null);
   @override
-  void fillRange(int? start, int? end, [_i5.Interceptor? fill]) =>
+  void fillRange(int? start, int? end, [_i6.Interceptor? fill]) =>
       super.noSuchMethod(Invocation.method(#fillRange, [start, end, fill]),
           returnValueForMissingStub: null);
   @override
-  void setRange(int? start, int? end, Iterable<_i5.Interceptor>? iterable,
+  void setRange(int? start, int? end, Iterable<_i6.Interceptor>? iterable,
           [int? skipCount = 0]) =>
       super.noSuchMethod(
           Invocation.method(#setRange, [start, end, iterable, skipCount]),
           returnValueForMissingStub: null);
   @override
   void replaceRange(
-          int? start, int? end, Iterable<_i5.Interceptor>? newContents) =>
+          int? start, int? end, Iterable<_i6.Interceptor>? newContents) =>
       super.noSuchMethod(
           Invocation.method(#replaceRange, [start, end, newContents]),
           returnValueForMissingStub: null);
@@ -1019,7 +1027,7 @@ class MockInterceptors extends _i1.Mock implements _i5.Interceptors {
       (super.noSuchMethod(Invocation.method(#indexOf, [element, start]),
           returnValue: 0) as int);
   @override
-  int indexWhere(bool Function(_i5.Interceptor)? test, [int? start = 0]) =>
+  int indexWhere(bool Function(_i6.Interceptor)? test, [int? start = 0]) =>
       (super.noSuchMethod(Invocation.method(#indexWhere, [test, start]),
           returnValue: 0) as int);
   @override
@@ -1027,23 +1035,23 @@ class MockInterceptors extends _i1.Mock implements _i5.Interceptors {
       (super.noSuchMethod(Invocation.method(#lastIndexOf, [element, start]),
           returnValue: 0) as int);
   @override
-  int lastIndexWhere(bool Function(_i5.Interceptor)? test, [int? start]) =>
+  int lastIndexWhere(bool Function(_i6.Interceptor)? test, [int? start]) =>
       (super.noSuchMethod(Invocation.method(#lastIndexWhere, [test, start]),
           returnValue: 0) as int);
   @override
-  void insert(int? index, _i5.Interceptor? element) =>
+  void insert(int? index, _i6.Interceptor? element) =>
       super.noSuchMethod(Invocation.method(#insert, [index, element]),
           returnValueForMissingStub: null);
   @override
-  _i5.Interceptor removeAt(int? index) =>
+  _i6.Interceptor removeAt(int? index) =>
       (super.noSuchMethod(Invocation.method(#removeAt, [index]),
-          returnValue: _FakeInterceptor()) as _i5.Interceptor);
+          returnValue: _FakeInterceptor()) as _i6.Interceptor);
   @override
-  void insertAll(int? index, Iterable<_i5.Interceptor>? iterable) =>
+  void insertAll(int? index, Iterable<_i6.Interceptor>? iterable) =>
       super.noSuchMethod(Invocation.method(#insertAll, [index, iterable]),
           returnValueForMissingStub: null);
   @override
-  void setAll(int? index, Iterable<_i5.Interceptor>? iterable) =>
+  void setAll(int? index, Iterable<_i6.Interceptor>? iterable) =>
       super.noSuchMethod(Invocation.method(#setAll, [index, iterable]),
           returnValueForMissingStub: null);
   @override
@@ -1055,7 +1063,7 @@ class MockInterceptors extends _i1.Mock implements _i5.Interceptors {
 /// A class which mocks [Lock].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockLock extends _i1.Mock implements _i5.Lock {
+class MockLock extends _i1.Mock implements _i6.Lock {
   MockLock() {
     _i1.throwOnMissingStub(this);
   }
@@ -1075,27 +1083,19 @@ class MockLock extends _i1.Mock implements _i5.Lock {
       super.noSuchMethod(Invocation.method(#clear, [msg]),
           returnValueForMissingStub: null);
   @override
-  _i9.Future<dynamic>? enqueue(_i5.EnqueueCallback? callback) =>
+  _i10.Future<dynamic>? enqueue(_i6.EnqueueCallback? callback) =>
       (super.noSuchMethod(Invocation.method(#enqueue, [callback]))
-          as _i9.Future<dynamic>?);
+          as _i10.Future<dynamic>?);
 }
 
 /// A class which mocks [ApiEndpoints].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockApiEndpoints extends _i1.Mock implements _i15.ApiEndpoints {
+class MockApiEndpoints extends _i1.Mock implements _i16.ApiEndpoints {
   MockApiEndpoints() {
     _i1.throwOnMissingStub(this);
   }
 
-  @override
-  String get token =>
-      (super.noSuchMethod(Invocation.getter(#token), returnValue: '')
-          as String);
-  @override
-  set token(String? _token) =>
-      super.noSuchMethod(Invocation.setter(#token, _token),
-          returnValueForMissingStub: null);
   @override
   String get baseUrl =>
       (super.noSuchMethod(Invocation.getter(#baseUrl), returnValue: '')
@@ -1105,11 +1105,23 @@ class MockApiEndpoints extends _i1.Mock implements _i15.ApiEndpoints {
       super.noSuchMethod(Invocation.setter(#baseUrl, _baseUrl),
           returnValueForMissingStub: null);
   @override
+  String get token =>
+      (super.noSuchMethod(Invocation.getter(#token), returnValue: '')
+          as String);
+  @override
   String get appsettings =>
       (super.noSuchMethod(Invocation.getter(#appsettings), returnValue: '')
           as String);
   @override
-  set appsettings(String? _appsettings) =>
-      super.noSuchMethod(Invocation.setter(#appsettings, _appsettings),
-          returnValueForMissingStub: null);
+  String get generateOtp =>
+      (super.noSuchMethod(Invocation.getter(#generateOtp), returnValue: '')
+          as String);
+  @override
+  String get signup =>
+      (super.noSuchMethod(Invocation.getter(#signup), returnValue: '')
+          as String);
+  @override
+  String get verifyOtp =>
+      (super.noSuchMethod(Invocation.getter(#verifyOtp), returnValue: '')
+          as String);
 }

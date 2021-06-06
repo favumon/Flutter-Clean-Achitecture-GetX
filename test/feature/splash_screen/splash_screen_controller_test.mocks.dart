@@ -11,6 +11,7 @@ import 'package:domain/feature/local_storage/repositories/local_storage_reposito
     as _i2;
 import 'package:domain/feature/local_storage/usecases/get_default_language.dart'
     as _i5;
+import 'package:flutter/src/widgets/navigator.dart' as _i10;
 import 'package:get/get_core/src/get_interface.dart' as _i4;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:symex_mobile_v2/core/services/navigation_service.dart' as _i9;
@@ -63,11 +64,26 @@ class MockNavigationService extends _i1.Mock implements _i9.NavigationService {
   _i4.GetInterface get get => (super.noSuchMethod(Invocation.getter(#get),
       returnValue: _FakeGetInterface()) as _i4.GetInterface);
   @override
-  void navigate(String? route) =>
-      super.noSuchMethod(Invocation.method(#navigate, [route]),
-          returnValueForMissingStub: null);
+  void navigate(String? route, {dynamic arguments}) => super.noSuchMethod(
+      Invocation.method(#navigate, [route], {#arguments: arguments}),
+      returnValueForMissingStub: null);
   @override
   void navigateAndReplace(String? route) =>
       super.noSuchMethod(Invocation.method(#navigateAndReplace, [route]),
+          returnValueForMissingStub: null);
+  @override
+  void navigateBackUntil(String? route) =>
+      super.noSuchMethod(Invocation.method(#navigateBackUntil, [route]),
+          returnValueForMissingStub: null);
+  @override
+  void navigateAndClearStackUntil(String? route,
+          {bool Function(_i10.Route<dynamic>)? predicate}) =>
+      super.noSuchMethod(
+          Invocation.method(
+              #navigateAndClearStackUntil, [route], {#predicate: predicate}),
+          returnValueForMissingStub: null);
+  @override
+  void navigateBack() =>
+      super.noSuchMethod(Invocation.method(#navigateBack, []),
           returnValueForMissingStub: null);
 }

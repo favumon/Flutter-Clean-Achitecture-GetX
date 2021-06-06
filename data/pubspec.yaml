@@ -24,6 +24,7 @@ dependencies:
   core:
     path: ../core 
   mockito: ^5.0.7
+  local_auth: ^1.1.6
 dev_dependencies:
   flutter_test:
     sdk: flutter

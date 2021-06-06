@@ -28,3 +28,15 @@ class CacheFailure extends Failure {
 class LocalStorageFailure extends Failure {
   LocalStorageFailure({String? message}) : super(message: message);
 }
+
+class SignupFailure extends Failure {
+  SignupFailure({String? message}) : super(message: message);
+}
+
+class OtpVerificationFailure extends Failure {
+  OtpVerificationFailure({String? message}) : super(message: message);
+}
+
+class BiometricAuthenticationFailure extends Failure {
+  BiometricAuthenticationFailure({String? message}) : super(message: message);
+}

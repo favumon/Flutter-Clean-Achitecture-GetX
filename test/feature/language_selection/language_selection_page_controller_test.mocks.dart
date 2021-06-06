@@ -6,11 +6,12 @@ import 'dart:async' as _i6;
 
 import 'package:core/error/failures.dart' as _i7;
 import 'package:dartz/dartz.dart' as _i3;
-import 'package:domain/feature/app_settings/entities/app_settings.dart' as _i9;
+import 'package:domain/feature/app_settings/entities/app_settings.dart' as _i10;
 import 'package:domain/feature/local_storage/repositories/local_storage_repository.dart'
     as _i2;
 import 'package:domain/feature/local_storage/usecases/set_default_language.dart'
     as _i5;
+import 'package:flutter/src/widgets/navigator.dart' as _i9;
 import 'package:get/get_core/src/get_interface.dart' as _i4;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:symex_mobile_v2/core/services/navigation_service.dart' as _i8;
@@ -64,19 +65,34 @@ class MockNavigationService extends _i1.Mock implements _i8.NavigationService {
   _i4.GetInterface get get => (super.noSuchMethod(Invocation.getter(#get),
       returnValue: _FakeGetInterface()) as _i4.GetInterface);
   @override
-  void navigate(String? route) =>
-      super.noSuchMethod(Invocation.method(#navigate, [route]),
-          returnValueForMissingStub: null);
+  void navigate(String? route, {dynamic arguments}) => super.noSuchMethod(
+      Invocation.method(#navigate, [route], {#arguments: arguments}),
+      returnValueForMissingStub: null);
   @override
   void navigateAndReplace(String? route) =>
       super.noSuchMethod(Invocation.method(#navigateAndReplace, [route]),
+          returnValueForMissingStub: null);
+  @override
+  void navigateBackUntil(String? route) =>
+      super.noSuchMethod(Invocation.method(#navigateBackUntil, [route]),
+          returnValueForMissingStub: null);
+  @override
+  void navigateAndClearStackUntil(String? route,
+          {bool Function(_i9.Route<dynamic>)? predicate}) =>
+      super.noSuchMethod(
+          Invocation.method(
+              #navigateAndClearStackUntil, [route], {#predicate: predicate}),
+          returnValueForMissingStub: null);
+  @override
+  void navigateBack() =>
+      super.noSuchMethod(Invocation.method(#navigateBack, []),
           returnValueForMissingStub: null);
 }
 
 /// A class which mocks [AppSettings].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockAppSettings extends _i1.Mock implements _i9.AppSettings {
+class MockAppSettings extends _i1.Mock implements _i10.AppSettings {
   MockAppSettings() {
     _i1.throwOnMissingStub(this);
   }

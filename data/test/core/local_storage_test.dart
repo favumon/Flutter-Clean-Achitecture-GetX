@@ -1,4 +1,4 @@
-import 'package:data/core/local_storage.dart';
+import 'package:data/core/device/local_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
@@ -10,10 +10,10 @@ import 'local_storage_test.mocks.dart';
 @GenerateMocks([SharedPreferences])
 main() {
   MockSharedPreferences? mockSharedPreferences;
-  LocalStorageImpl? localStorageImpl;
+  LocalStorage? localStorageImpl;
   setUp(() {
     mockSharedPreferences = MockSharedPreferences();
-    localStorageImpl = LocalStorageImpl(mockSharedPreferences!);
+    localStorageImpl = LocalStorage(mockSharedPreferences!);
   });
   test('shoud call SharedPreferences to save value', () {
     var testReturnValue = 'test';

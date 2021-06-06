@@ -1,6 +1,6 @@
 import 'package:core/error/failures.dart';
 import 'package:dartz/dartz.dart';
-import 'package:data/core/local_storage.dart';
+import 'package:data/core/device/local_storage.dart';
 import 'package:domain/feature/local_storage/usecases/set_default_language.dart';
 import 'package:injectable/injectable.dart';
 

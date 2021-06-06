@@ -3,20 +3,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 const userToken = 'user_token';
 const defaultLanguage = 'default_language';
+const loginPin = 'login_pin';
 
-abstract class LocalStorage {
-  String? getString(String key);
-  Future<bool> saveString(String key, String value);
-}
-
-@LazySingleton(as: LocalStorage)
-class LocalStorageImpl extends LocalStorage {
+@lazySingleton
+class LocalStorage {
   final SharedPreferences sharedPreferences;
 
-  LocalStorageImpl(this.sharedPreferences);
-  @override
+  LocalStorage(this.sharedPreferences);
   String? getString(String key) => sharedPreferences.getString(key);
-  @override
-  Future<bool> saveString(String key, value) =>
+  Future<bool> saveString(String key, String value) =>
       sharedPreferences.setString(key, value);
 }

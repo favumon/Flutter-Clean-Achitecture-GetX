@@ -8,7 +8,7 @@ import 'package:connectivity/connectivity.dart' as _i3;
 import 'package:core/error/failures.dart' as _i9;
 import 'package:dartz/dartz.dart' as _i6;
 import 'package:data/core/constants/api_endpoints.dart' as _i5;
-import 'package:data/core/local_storage.dart' as _i4;
+import 'package:data/core/device/local_storage.dart' as _i4;
 import 'package:data/core/remote_api.dart' as _i7;
 import 'package:dio/src/dio.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
@@ -68,6 +68,22 @@ class MockRemoteApiImpl extends _i1.Mock implements _i7.RemoteApiImpl {
       (super.noSuchMethod(
               Invocation.method(
                   #apiGet, [path], {#queryParameters: queryParameters}),
+              returnValue:
+                  Future<_i6.Either<_i9.Failure, Map<String, dynamic>>>.value(
+                      _FakeEither<_i9.Failure, Map<String, dynamic>>()))
+          as _i8.Future<_i6.Either<_i9.Failure, Map<String, dynamic>>>);
+  @override
+  _i8.Future<_i6.Either<_i9.Failure, Map<String, dynamic>>> apiPost(
+          String? path,
+          {Map<String, dynamic>? queryParameters,
+          dynamic data}) =>
+      (super.noSuchMethod(
+              Invocation.method(#apiPost, [
+                path
+              ], {
+                #queryParameters: queryParameters,
+                #data: data
+              }),
               returnValue:
                   Future<_i6.Either<_i9.Failure, Map<String, dynamic>>>.value(
                       _FakeEither<_i9.Failure, Map<String, dynamic>>()))
